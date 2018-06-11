@@ -1,0 +1,9 @@
+---
+- name: test
+  hosts: test_servers
+  remote_user: vagrant
+  become: yes
+  become_user: root
+  tasks:
+  - name: ping pong check
+    ping:

@@ -1,0 +1,8 @@
+---
+- name: Install Ansible
+  yum:
+    name:
+      - ansible
+      - sshpass
+    enablerepo: epel
+    state: latest

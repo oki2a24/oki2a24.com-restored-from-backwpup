@@ -1,0 +1,8 @@
+---
+- name: Install and configure the basic package
+  hosts: all
+  become: true
+
+  roles:
+    - common
+    - ansible
