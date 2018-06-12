@@ -1,9 +1,0 @@
-mariadb_root_password: change_here
-wp_db_name: wp_db_name
-wp_db_user: wp_db_user
-wp_db_password: chage_here
-wp_url: http://192.168.56.11
-wp_title: test
-wp_admin_user: test
-wp_admin_password: chage_here
-wp_admin_email: test@example.com
