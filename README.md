@@ -1,3 +1,7 @@
+## はじめに
+- 古いサーバから新しいサーバへ WordPress を引っ越しする際に、この playbook を使用して新しいサーバを構築する。
+- 動作確認のため、新規に WordPress をインストールしているが、引っ越しのファイルで上書きされることを想定している。
+
 ## 構成
 - playbook: WordPress サーバを構築する Ansible playbook。
 - controller: Ansible のコントロールノード。playbook を実行する役割。
@@ -27,17 +31,12 @@ ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub vagrant@192.168
 ansible-playbook -i hosts test.yml
 ```
 
+## Ansible ターゲットノードへの playbook 実行の前に注意すること
+- playbook/group_vars/all ファイルの各値を確認・修正してから実行すること。
+
 ## Ansible ターゲットノードへの playbook 実行
 ```bash
 ansible-playbook -i hosts site.yml
 # タグ指定で playbook 実行
 ansible-playbook -i hosts site.yml --tags "common,mariadb"
 ```
-
-
-
-
-vim /etc/nginx/nginx.conf
-vim /etc/nginx/conf.d/default.conf
-  ドキュメントルートは動的にするべきかも
-  WordPress インストール時も含めて
