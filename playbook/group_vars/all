@@ -1,4 +1,5 @@
 mariadb_root_password: change_here
+wp_path: /srv/wordpress
 wp_db_name: wp_db_name
 wp_db_user: wp_db_user
 wp_db_password: chage_here
