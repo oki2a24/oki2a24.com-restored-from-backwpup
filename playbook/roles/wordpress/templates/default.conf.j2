@@ -2,7 +2,7 @@ server {
     # ポートを指定
     listen       80;
     # ドキュメントルート
-    root   /srv/wordpress/;
+    root   {{ wp_path }}/;
     # インデックスファイル指定
     index  index.php index.html index.htm;
     # 実ファイルがない場合のアクセスファイル
