@@ -1,0 +1,38 @@
+--- /etc/php.ini.org	2017-05-10 01:39:44.000000000 +0900
++++ /etc/php.ini	2017-06-04 07:59:35.025833973 +0900
+@@ -371,7 +371,7 @@ zend.enable_gc = On
+ ; threat in any way, but it makes it possible to determine whether you use PHP
+ ; on your server or not.
+ ; http://php.net/expose-php
+-expose_php = On
++expose_php = Off
+ 
+ ;;;;;;;;;;;;;;;;;;;
+ ; Resource Limits ;
+@@ -500,7 +500,7 @@ log_errors = On
+ ; Set maximum length of log_errors. In error_log information about the source is
+ ; added. The default is 1024 and 0 allows to not apply any maximum length at all.
+ ; http://php.net/log-errors-max-len
+-log_errors_max_len = 1024
++log_errors_max_len = 4096
+ 
+ ;windows.show_crt_warning
+ ; Default value: 0
+@@ -899,7 +899,7 @@ cli_server.color = On
+ [Date]
+ ; Defines the default timezone used by the date functions
+ ; http://php.net/date.timezone
+-;date.timezone =
++date.timezone = "Asia/Tokyo"
+ 
+ ; http://php.net/date.default-latitude
+ ;date.default_latitude = 31.7667
+@@ -1510,7 +1510,7 @@ zend.assertions = -1
+ ; language for internal character representation.
+ ; This affects mb_send_mail() and mbstring.detect_order.
+ ; http://php.net/mbstring.language
+-;mbstring.language = Japanese
++mbstring.language = Japanese
+ 
+ ; Use of this INI entry is deprecated, use global internal_encoding instead.
+ ; internal/script encoding.

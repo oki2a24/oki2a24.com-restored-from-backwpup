@@ -1,0 +1,20 @@
+---
+- name: Upgrade all packages
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install Vim
+  yum:
+    name: vim-enhanced
+    state: latest
+
+- name: Install chrony
+  yum:
+    name: chrony
+    state: latest
+- name: chrony service state
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
