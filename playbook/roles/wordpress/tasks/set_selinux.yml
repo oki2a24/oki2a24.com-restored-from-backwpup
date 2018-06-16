@@ -1,4 +1,8 @@
 ---
+- name: Enable SELinux
+  selinux:
+    state: enforcing
+
 - name: Install SEManage
   yum:
     pkg: policycoreutils-python
