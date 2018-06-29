@@ -1,6 +1,7 @@
 ---
 - name: Provision oki2a24.com WordPress server
   hosts: all
+  remote_user: ansible
   become: true
   roles:
     - role: common

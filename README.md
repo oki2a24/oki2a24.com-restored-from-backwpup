@@ -21,14 +21,15 @@ vagrant up
 1. ターゲットノードに対して SSH 公開鍵を登録
 1. Ansible を実行し、疎通を確認
 
-今回、ターゲットノードは、target ディレクトリにて `vagrant up` を実行することで作成できる VM を例とする。
+今回、ターゲットノードは、testtarget ディレクトリにて `vagrant up` を実行することで作成できる VM を例とする。この VM には、ユーザ名: ansible, パスワード: ansible というユーザが予め追加されている。
 
 ```bash
 vagrant ssh
 cd playbook
 ssh-keygen -t rsa
-ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub vagrant@192.168.56.11
-ansible-playbook -i hosts test.yml
+ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub ansible@@192.168.56.11
+ansible-playbook -i hosts test.yml --ask-become-pass
+# SUDO password: ansible
 ```
 
 ## Ansible ターゲットノードへの playbook 実行の前に注意すること
@@ -36,7 +37,7 @@ ansible-playbook -i hosts test.yml
 
 ## Ansible ターゲットノードへの playbook 実行
 ```bash
-ansible-playbook -i hosts site.yml
+ansible-playbook -i hosts site.yml --ask-become-pass
 # タグ指定で playbook 実行
-ansible-playbook -i hosts site.yml --tags "common,mariadb"
+ansible-playbook -i hosts site.yml --ask-become-pass --tags "common,mariadb"
 ```

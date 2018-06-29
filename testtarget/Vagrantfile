@@ -1,7 +1,19 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$script = <<-SCRIPT
+echo I am provisioning...
+date > /etc/vagrant_provisioned_at
+useradd ansible
+passwd ansible << EOF
+ansible
+ansible
+EOF
+gpasswd -a ansible wheel
+SCRIPT
+
 Vagrant.configure("2") do |config|
   config.vm.box = "oki2a24/centos-7-x86_64"
   config.vm.network "private_network", ip: "192.168.56.11"
+  config.vm.provision "shell", inline: $script
 end
