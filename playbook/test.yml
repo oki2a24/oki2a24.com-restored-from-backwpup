@@ -2,7 +2,7 @@
 # 疎通確認用
 - name: test
   hosts: test_servers
-  remote_user: vagrant
+  remote_user: ansible
   become: yes
   become_user: root
   tasks:

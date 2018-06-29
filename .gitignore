@@ -1,3 +1,5 @@
+id_rsa
+
 # Ansible
 *.retry
 
@@ -6,3 +8,4 @@
 
 # Vim
 *.swp
+*.swo
