@@ -1,4 +1,6 @@
 id_rsa
+.DS_Store
+*.zip
 
 # Ansible
 *.retry
