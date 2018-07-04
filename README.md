@@ -3,18 +3,17 @@
 - サーバの構築には、ansible ユーザを必要とします。このユーザは sudo 権限をもつ必要があります。
 - [BackWPup – WordPress Backup Plugin | WordPress.org](https://ja.wordpress.org/plugins/backwpup/) を使って作成したデータベースのバックアップ、ファイルのバックアップから WordPress を復元します。
 
-参考
-- <a href="https://developer.wordpress.org/cli/commands/db/create/" target="_blank">wp db create | WordPress Developer Resources</a>
-- <a href="https://developer.wordpress.org/cli/commands/db/import/" target="_blank">wp db import | WordPress Developer Resources</a>
-- <a href="https://docs.ansible.com/ansible/latest/modules/unarchive_module.html" target="_blank">unarchive - Unpacks an archive after (optionally) copying it from the local machine. — Ansible Documentation</a>
-
 ## 準備
-- `playbook/group_vars/all` の各項目の値を編集してください。
+- BackWPup で作成したバックアップファイルは次のようにしてください。
+  - データベースのバックアップおよびファイルのバックアップを含むようにしてください。
+  - DB バックアップのバックアップファイル名は、データベース名.sql となるようにしてください(デフォルトのまま)。
 - `playbook/wordpress/files/` に BackWPup で作成したバックアップファイルを置いてください。
+- `playbook/hosts` の wp_server の IP アドレスを Ansible ターゲットノードの値に修正してください。
+- `playbook/group_vars/all` の各項目の値を編集してください。
 
 ## Ansible コントロールノードの作成
-どの環境でも Ansible を実行できるようにするために、コントロールノード専用の VM を構築する。
-Windows では Ansible がインストールできないし、Mac では sshpass が気楽にインストールできないためだ。
+どの環境でも Ansible を実行できるようにするために、コントロールノード専用の VM を構築します。
+Windows では Ansible がインストールできないし、Mac では sshpass が気楽にインストールできないためです。
 
 ```bash
 cd controller/
@@ -40,7 +39,7 @@ gpasswd -a ansible wheel
 1. ターゲットノードに対して SSH 公開鍵を登録
 1. Ansible を実行し、疎通を確認
 
-今回、ターゲットノードは、testtarget ディレクトリにて `vagrant up` を実行することで作成できる VM を例とする。この VM には、ユーザ名: ansible, パスワード: ansible というユーザが予め追加されている。
+今回、ターゲットノードは、testtarget ディレクトリにて `vagrant up` を実行することで作成できる VM を例とします。この VM には、ユーザ名: ansible, パスワード: ansible というユーザが予め追加されています。
 
 ```bash
 vagrant ssh
