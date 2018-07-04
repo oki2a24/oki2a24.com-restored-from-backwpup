@@ -1,6 +1,6 @@
 ---
-- name: Provision oki2a24.com WordPress server
-  hosts: all
+- name: Provision WordPress server and restore oki2a24.com from BackWPup
+  hosts: wp_server
   remote_user: ansible
   become: true
   roles:
@@ -16,5 +16,5 @@
       tags: php-fpm
     - role: wordpress
       tags: wordpress
-    - role: wp-plugin-nginx-champuru
-      tags: wp-plugin-nginx-champuru
+#    - role: wp-plugin-nginx-champuru
+#      tags: wp-plugin-nginx-champuru

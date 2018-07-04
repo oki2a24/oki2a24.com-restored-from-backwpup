@@ -18,3 +18,10 @@
     mode: 0644
     backup: yes
   notify: Restart nginx
+
+- name: Change cache directory owner
+  file:
+    path: /var/cache/nginx/
+    state: directory
+    owner: nginx
+  notify: Restart nginx

@@ -1,0 +1,24 @@
+---
+- name: Create WordPress directory
+  file:
+    path: "{{ wp_path }}"
+    state: directory
+    mode: 0755
+
+- name: Install unzip
+  yum:
+    name: unzip
+    state: latest
+
+- name: Extract BackWPup
+  unarchive:
+    src: "{{ bacwpup_zip_file }}"
+    dest: "{{ wp_path }}"
+
+- name: Change ownership of WordPress directory
+  file:
+    path: "{{ wp_path }}"
+    owner: nginx
+    group: nginx
+    state: directory
+    recurse: yes
