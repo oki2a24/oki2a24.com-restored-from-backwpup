@@ -1,13 +1,46 @@
 ---
+- name: Get WordPress database name
+  shell: /usr/local/bin/wp config get DB_NAME --path={{ wp_path }}
+  register: wp_db_name
+  changed_when: false
+  failed_when: false
+
+- name: print
+  debug:
+    msg: "{{ wp_db_name }}"
+
+- name: Get WordPress database user
+  shell: /usr/local/bin/wp config get DB_USER --path={{ wp_path }}
+  register: wp_db_user
+  changed_when: false
+  failed_when: false
+
+- name: print
+  debug:
+    msg: "{{ wp_db_user }}"
+
+- name: Get WordPress database password
+  shell: /usr/local/bin/wp config get DB_PASSWORD --path={{ wp_path }}
+  register: wp_db_password
+  changed_when: false
+  failed_when: false
+
+- name: print
+  debug:
+    msg: "{{ wp_db_password }}"
+
 - name: Create WordPress database
   mysql_db:
-    name: "{{ wp_db_name }}"
+    name: "{{ wp_db_name.stdout }}"
     state: present
 
 - name: Create WordPress database user
   mysql_user:
-    name: "{{ wp_db_user }}"
-    password: "{{ wp_db_password }}"
-    priv: "{{ wp_db_name }}.*:ALL"
+    name: "{{ wp_db_user.stdout }}"
+    password: "{{ wp_db_password.stdout }}"
+    priv: "{{ wp_db_name.stdout }}.*:ALL"
     host: "localhost"
     state: present
+
+- name: Import WordPress DataBase
+  shell: /usr/local/bin/wp db import {{ wp_path }}/{{ wp_db_name.stdout }}.sql --path={{ wp_path }}
