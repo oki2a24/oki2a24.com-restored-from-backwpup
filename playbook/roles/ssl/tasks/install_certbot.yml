@@ -1,0 +1,8 @@
+---
+- name: Install certbot
+  yum:
+    name:
+      - certbot
+      - python2-certbot-nginx
+    enablerepo: epel
+    state: latest

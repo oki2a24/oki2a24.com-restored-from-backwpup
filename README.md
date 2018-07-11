@@ -2,6 +2,7 @@
 - Nginx、PHP-FPM、PHP、MariaDB を 1 つのサーバに構築します。
 - サーバの構築には、ansible ユーザを必要とします。このユーザは sudo 権限をもつ必要があります。
 - [BackWPup – WordPress Backup Plugin | WordPress.org](https://ja.wordpress.org/plugins/backwpup/) を使って作成したデータベースのバックアップ、ファイルのバックアップから WordPress を復元します。
+- Let's Encrypt を使って、SSL 証明書を発行し、設定します。
 
 ## 準備
 - BackWPup で作成したバックアップファイルは次のようにしてください。
