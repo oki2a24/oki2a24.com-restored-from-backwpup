@@ -1,6 +1,6 @@
 ---
 - name: Set certbot
-  command: certbot certonly --nginx -w {{ wp_path }} -d {{ domain }} --agree-tos -m {{ email }} --keep-until-expiring
+  command: certbot certonly --nginx -w {{ wp_path }} -d {{ domain }} --agree-tos -m {{ email }} --keep-until-expiring --non-interactive --staging
 
 - name: Insert firewalld rule for ssl
   firewalld:
