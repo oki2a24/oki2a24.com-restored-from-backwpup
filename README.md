@@ -28,10 +28,7 @@ vagrant up
 
 ```bash
 useradd ansible
-passwd ansible << EOF
-ansible
-ansible
-EOF
+passwd ansible
 gpasswd -a ansible wheel
 ```
 
@@ -40,7 +37,7 @@ gpasswd -a ansible wheel
 1. ターゲットノードに対して SSH 公開鍵を登録
 1. Ansible を実行し、疎通を確認
 
-今回、ターゲットノードは、testtarget ディレクトリにて `vagrant up` を実行することで作成できる VM を例とします。この VM には、ユーザ名: ansible, パスワード: ansible というユーザが予め追加されています。
+以下、ターゲットノードの IP アドレスが 192.168.56.11 のマシンを例とした場合です。
 
 ```bash
 vagrant ssh
@@ -55,6 +52,6 @@ ansible-playbook -i hosts test.yml --ask-become-pass
 ```bash
 ansible-playbook -i hosts site.yml --ask-become-pass
 # タグ指定で playbook 実行
-ansible-playbook -i hosts site.yml --ask-become-pass --tags "common,mariadb,nginx,php,php-fpm"
-ansible-playbook -i hosts site.yml --ask-become-pass --tags wordpress
+ansible-playbook -i hosts site.yml --ask-become-pass --tags "common,mariadb,nginx,php,php-fpm,wordpress"
+ansible-playbook -i hosts site.yml --ask-become-pass --tags ssl
 ```
