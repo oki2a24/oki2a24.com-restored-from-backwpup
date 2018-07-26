@@ -1,0 +1,6 @@
+---
+- name: Set renew cert
+  cron:
+    name: "renew cert"
+    hour: 0,12
+    job: "python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew"

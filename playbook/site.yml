@@ -16,5 +16,5 @@
       tags: php-fpm
     - role: wordpress
       tags: wordpress
-#    - role: wp-plugin-nginx-champuru
-#      tags: wp-plugin-nginx-champuru
+    - role: ssl
+      tags: ssl

@@ -1,3 +1,5 @@
 mariadb_root_password: change_here
 wp_path: /srv/wordpress
-bacwpup_zip_file: 2018-06-29_13-52-53_J5FHMXNU01.zip
+bacwpup_zip_file: 2018-07-11_10-53-02_TJFHMXK601.zip
+domain: test.oki2a24.com
+email: oki2a24@gmail.com

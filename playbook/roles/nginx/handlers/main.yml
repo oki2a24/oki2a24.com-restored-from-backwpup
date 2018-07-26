@@ -1,6 +1,6 @@
 ---
-- name: Restart php-fpm
+- name: Restart nginx
   service:
-    name: php-fpm.service
+    name: nginx.service
     state: restarted
     enabled: yes

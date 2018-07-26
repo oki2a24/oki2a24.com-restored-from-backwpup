@@ -1,0 +1,5 @@
+---
+- import_tasks: install_certbot.yml
+- import_tasks: set_cert.yml
+- import_tasks: edit_nginx_conf.yml
+- import_tasks: set_renew_cert.yml

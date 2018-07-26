@@ -1,0 +1,118 @@
+root   {{ wp_path }};
+index  index.php index.html index.htm;
+
+proxy_cache_path  /var/cache/nginx keys_zone=czone:32m levels=1:2 inactive=3d max_size=256m;
+proxy_cache czone;
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-Host $host;
+proxy_set_header X-Forwarded-Server $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_cache_valid 200 404 1d;
+
+server {
+    listen 80 default_server;
+
+    location ~ /\. {deny all; access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        log_not_found off;
+        proxy_pass http://unix:/var/run/nginx.sock;
+    }
+
+    set $do_not_cache 0;
+
+    if ($request_method != "GET") {
+        set $do_not_cache 1;
+    }
+
+    if ($uri ~* "\.php$") {
+        set $do_not_cache 1;
+    }
+
+    if ($http_cookie ~ ^.*(comment_author_|wordpress_logged_in|wp-postpass_).*$) {
+        set $do_not_cache 1;
+    }
+
+    location / {
+        proxy_no_cache $do_not_cache;
+        proxy_cache_bypass $do_not_cache;
+        proxy_cache_key "$scheme://$host$request_uri";
+        proxy_pass http://unix:/var/run/nginx.sock;
+    }
+
+}
+
+server {
+    listen unix:/var/run/nginx.sock;
+    try_files $uri $uri/ /index.php?q=$uri&$args;
+
+    location ~ \.php$ {
+        fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+        fastcgi_pass_header "X-Accel-Redirect";
+        fastcgi_pass_header "X-Accel-Buffering";
+        fastcgi_pass_header "X-Accel-Charset";
+        fastcgi_pass_header "X-Accel-Expires";
+        fastcgi_pass_header "X-Accel-Limit-Rate";
+    }
+}
+
+
+server {
+
+    location ~ /\. {deny all; access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        log_not_found off;
+        proxy_pass http://unix:/var/run/nginx.sock;
+    }
+
+    set $do_not_cache 0;
+
+    if ($request_method != "GET") {
+        set $do_not_cache 1;
+    }
+
+    if ($uri ~* "\.php$") {
+        set $do_not_cache 1;
+    }
+
+    if ($http_cookie ~ ^.*(comment_author_|wordpress_logged_in|wp-postpass_).*$) {
+        set $do_not_cache 1;
+    }
+
+    location / {
+        proxy_no_cache $do_not_cache;
+        proxy_cache_bypass $do_not_cache;
+        proxy_cache_key "$scheme://$host$request_uri";
+        proxy_pass http://unix:/var/run/nginx.sock;
+    }
+
+
+    server_name {{ domain }}; # managed by Certbot
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = {{ domain }}) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80 ;
+    server_name {{ domain }};
+    return 404; # managed by Certbot
+
+
+}
